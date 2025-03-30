@@ -60,68 +60,7 @@
         });
     </script>
 
-    <style>
-        /* Sidebar Styling */
-        .sidebar {
-            height: 100vh;
-            width: 250px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: #343a40;
-            padding-top: 20px;
-            transition: all 0.3s ease-in-out;
-        }
-        .sidebar a {
-            padding: 15px;
-            text-decoration: none;
-            font-size: 18px;
-            color: white;
-            display: flex;
-            align-items: center;
-            transition: background 0.3s;
-        }
-        .sidebar a i {
-            margin-right: 10px;
-        }
-        .sidebar a:hover {
-            background-color: #495057;
-        }
-        .content {
-            margin-left: 260px;
-            padding: 20px;
-            transition: margin-left 0.3s ease-in-out;
-        }
-        .navbar-brand {
-            font-size: 2rem; /* Increased navbar brand size */
-            font-weight: bold;
-        }
-        /* Collapsible Sidebar */
-        .toggle-btn {
-            position: absolute;
-            top: 15px;
-            left: 260px;
-            cursor: pointer;
-            font-size: 20px;
-            transition: left 0.3s ease-in-out;
-            color: white;
-            background-color: #343a40;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        .collapsed {
-            width: 70px;
-        }
-        .collapsed .sidebar-text {
-            display: none;
-        }
-        .collapsed + .content {
-            margin-left: 80px;
-        }
-        .collapsed .toggle-btn {
-            left: 80px;
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -136,7 +75,8 @@
 
     <!-- Sidebar Navigation -->
     <div class="sidebar" id="sidebar">
-        <h4 class="text-center text-light">CRM Menu</h4>
+        <!-- <h4 class="text-center text-light">CRM Menu</h4> -->
+        <h4 class="text-center">CRM Menu</h4>
         <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i><span class="sidebar-text"> Dashboard</span></a>
         <a href="profile.html"><i class="fas fa-user"></i><span class="sidebar-text"> My Profile</span></a>
         <a href="reports.html"><i class="fas fa-chart-line"></i><span class="sidebar-text"> Reports</span></a>
@@ -168,7 +108,8 @@
 
     <!-- Main Content Section -->
     <div class="content">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
                 <a class="navbar-brand" href="dashboard.html">ABB Robotics CRM</a>
                 <div class="collapse navbar-collapse">
