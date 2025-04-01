@@ -22,13 +22,33 @@
    --sidebar-hover-color: #495057;
 }
 
+.content {
+    width: 50%;
+    margin-left: 260px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transition: margin-left 0.3s ease-in-out;
+    border: 2px solid black;
+}
+
 /* Container for forms */
 .container {
-    background: var(--container-bg-color);
+    width: 90%;
     padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--container-bg-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    width: 350px;
     text-align: center;
 }
 
@@ -111,22 +131,19 @@ a:hover {
 .sidebar a:hover {
     background-color: var(--sidebar-hover-color);
 }
-.content {
-    margin-left: 260px;
-    padding: 20px;
-    transition: margin-left 0.3s ease-in-out;
-    /* border: 2px solid black; */
-}
-/* .navbar
+.navbar
 {
     justify-self: center;
     align-self: center;
     border: 2px solid black;
-} */
+}
 .navbar-brand {
+    padding: 8px;
+    color: var(--text-color);
+
+    text-align: center;
     font-size: 2rem; /* Increased navbar brand size */
     font-weight: bold;
-    color: var(--text-color);
 }
 /* Collapsible Sidebar */
 .toggle-btn {
@@ -154,3 +171,40 @@ a:hover {
     left: 80px;
 }
 
+.button-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.dashboard-btns 
+{
+    width: 175px;
+    height: 40px;
+    padding: 8px 24px;
+    margin: 24px;
+
+    /* position must be set to relative bcsidebar's position is fixed,
+    causing sidebar to have higher z-index, which causes overlapping 
+    and the buttons not being able to be clicked properly */
+    position: relative; 
+
+    display: inline-block;
+    box-sizing: border-box;
+
+    border-radius: 8px;
+    background-color: #007bff;
+    color: #EEEEFF;
+    box-shadow: 
+        0px 8px navy,
+        0px 16px 2px -2px rgb(153, 153, 153);
+    transition: transform 24ms;
+}
+
+.dashboard-btns:hover {
+    transform: translateY(-6px);
+    box-shadow: 
+        0px 4px navy,
+        0px 8px 1px -1px rgb(153, 153, 153);
+}

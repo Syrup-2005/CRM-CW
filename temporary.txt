@@ -1,0 +1,80 @@
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Input fields */
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Submit button */
+button {
+    background-color: #28a745;
+    color: var(--text-color);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Error message */
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+/* Success message */
+.success {
+    color: green;
+    font-size: 14px;
+}
+
+/* Link styling */
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--container-bg-color);
+    padding-top: 20px;
+    transition: all 0.3s ease-in-out;
+}
+.sidebar a {
+    padding: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    transition: background 0.3s;
+}
+.sidebar a i {
+    margin-right: 10px;
+}
+.sidebar a:hover {
+    background-color: var(--sidebar-hover-color);
+}

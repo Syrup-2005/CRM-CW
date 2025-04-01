@@ -21,3 +21,76 @@ toggle.addEventListener("change", function () {
         localStorage.setItem("darkMode", "disabled");
     }
 });
+
+
+
+// Sidebar Toggle Script
+function toggleSidebar() {
+    let sidebar = document.getElementById("sidebar");
+    // let content = document.querySelector(".content");
+    let toggleBtn = document.querySelector(".toggle-btn");
+
+    sidebar.classList.toggle("collapsed");
+    // content.classList.toggle("collapsed");
+    toggleBtn.classList.toggle("collapsed");
+
+    // Adjust toggle button position dynamically
+    if (sidebar.classList.contains("collapsed")) {
+        toggleBtn.style.left = "80px";
+    } else {
+        toggleBtn.style.left = "260px";
+    }
+}
+
+// // creating dynamic buttons
+// document.addEventListener("DOMContentLoaded", function() {
+//     fetch("get_user_data.php")
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.error) {
+//             document.getElementById("user-info").innerHTML = "<p style='color: red;'>" + data.error + "</p>";
+//         } else {
+//             document.getElementById("user-name").innerText = data.name;
+//             document.getElementById("user-email").innerText = data.email;
+//         }
+//     })
+//     .catch(error => console.error("Error fetching user data:", error));
+// });
+
+// document.addEventListener("DOMContentLoaded", function() {
+//     // Button data (text + link)
+//     let buttons = [
+//         { text: "Schedule a Call", link: "calls.html" },
+//         { text: "Manage Clients", link: "managecustomers.html" },
+//         { text: "View Reports", link: "reports.html" }, 
+//         { text: "Send an Email", link: "emails.html" },
+//         { text: "Customise Profile", link: "profile.html" }
+//     ];
+
+//     // Shuffle function (Fisher-Yates Algorithm)
+//     function shuffle(array) {
+//         for (let i = array.length - 1; i > 0; i--) {
+//             let j = Math.floor(Math.random() * (i + 1));
+//             [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+//         }
+//     }
+
+//     // Shuffle buttons
+//     shuffle(buttons);
+
+//     // Generate buttons dynamically
+//     let buttonContainer = document.getElementById("button-container");
+//     buttonContainer.innerHTML = ""; // Clear existing buttons
+
+//     buttons.forEach(button => {
+//         let a = document.createElement("a");
+//         a.href = button.link;
+//         a.className = "btn btn-primary w-50";
+//         a.innerText = button.text;
+
+//         // console.log("Creating button:", a.innerText, "with link:", a.href); // Debugging
+
+//         buttonContainer.appendChild(a);
+//         buttonContainer.appendChild(document.createElement("br")); // Line break
+//     });
+// });
