@@ -8,6 +8,11 @@
     --text-color: black;
     --container-bg-color: #EEEEFF;
     --sidebar-hover-color: #FFFAFA;
+
+    --general-btn-text-color: #EEEEFF;
+    --general-btn-bg-color: #007bff;
+    --general-btn-border-color: none;
+    --general-btn-insetbox-color: none;
 }
 
 .dark-mode
@@ -20,6 +25,11 @@
     --text-color: white;
    --container-bg-color: rgb(38, 38, 38);
    --sidebar-hover-color: #495057;
+
+   --general-btn-text-color: black;
+   --general-btn-bg-color: rgb(38, 38, 38);
+   --general-btn-border-color: black;
+   --general-btn-insetbox-color: rgb(60, 60, 60);
 }
 
 .content {
@@ -178,33 +188,80 @@ a:hover {
     justify-content: center;
 }
 
-.dashboard-btns 
+.general-btns 
 {
     width: 175px;
-    height: 40px;
-    padding: 8px 24px;
+    height: 50px;
+    padding: 8px 16px;
     margin: 24px;
-
-    /* position must be set to relative bcsidebar's position is fixed,
-    causing sidebar to have higher z-index, which causes overlapping 
-    and the buttons not being able to be clicked properly */
-    position: relative; 
-
-    display: inline-block;
     box-sizing: border-box;
 
+    /* 
+    - position must be set to relative bcsidebar's position is fixed,
+    causing sidebar to have higher z-index, which causes overlapping 
+    and the buttons not being able to be clicked properly
+    - inline flex helps with text alignment somehow but flex doesn't
+    */
+    position: relative; 
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
     border-radius: 8px;
-    background-color: #007bff;
-    color: #EEEEFF;
-    box-shadow: 
-        0px 8px navy,
-        0px 16px 2px -2px rgb(153, 153, 153);
-    transition: transform 24ms;
+    color: var(--general-btn-text-color);
+    background-color: var(--general-btn-bg-color);
+    border: 4px solid var(--general-btn-border-color);
+    box-shadow: inset 0px 4px var(--general-btn-insetbox-color);
+
+    transition: all 0.3s;
 }
 
-.dashboard-btns:hover {
+.dark-mode .general-btns {transition: color 0.3s, border 0.3s, box-shadow 0.5s;}
+
+/* light mode button hover animations */
+.general-btns:hover {
+    text-decoration: none;
     transform: translateY(-6px);
     box-shadow: 
-        0px 4px navy,
-        0px 8px 1px -1px rgb(153, 153, 153);
+        0px 6px navy,
+        0px 12px 4px 1px rgb(153, 153, 153);
+}
+
+.logout {background-color: red;}
+.logout:hover 
+{
+    box-shadow: 
+        0px 6px maroon,
+        0px 12px 4px 1px rgb(153, 153, 153);
+}
+
+/* dark mode button hover animations */
+.dark-mode .general-btns:hover
+{
+text-decoration: none;
+transform: none;
+
+color: #04D9FF;
+border: 4px solid #04D9FF;
+box-shadow: 
+    inset 0px 4px var(--general-btn-insetbox-color),
+    0px 0px 20px 4px #04D9FF;
+}
+    
+.dark-mode .logout
+{
+    color: #FF073A;
+    background-color: var(--general-btn-bg-color);
+    border: 4px solid var(--general-btn-border-color);
+    box-shadow: inset 0px 4px var(--general-btn-insetbox-color);
+}
+
+.dark-mode .logout:hover
+{
+    color: #FF073A;
+    border: 4px solid #FF073A;
+    box-shadow: 
+        inset 0px 4px var(--general-btn-insetbox-color),
+        0px 0px 20px 4px #FF073A;
+
 }

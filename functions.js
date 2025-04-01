@@ -42,21 +42,21 @@ function toggleSidebar() {
     }
 }
 
-// // creating dynamic buttons
-// document.addEventListener("DOMContentLoaded", function() {
-//     fetch("get_user_data.php")
-//     .then(response => response.json())
-//     .then(data => {
-//         if (data.error) {
-//             document.getElementById("user-info").innerHTML = "<p style='color: red;'>" + data.error + "</p>";
-//         } else {
-//             document.getElementById("user-name").innerText = data.name;
-//             document.getElementById("user-email").innerText = data.email;
-//         }
-//     })
-//     .catch(error => console.error("Error fetching user data:", error));
-// });
+document.addEventListener("DOMContentLoaded", function() {
+    fetch("get_user_data.php")
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            document.getElementById("user-info").innerHTML = "<p style='color: red;'>" + data.error + "</p>";
+        } else {
+            document.getElementById("user-name").innerText = data.name;
+            document.getElementById("user-email").innerText = data.email;
+        }
+    })
+    .catch(error => console.error("Error fetching user data:", error));
+});
 
+// creating dynamic buttons
 // document.addEventListener("DOMContentLoaded", function() {
 //     // Button data (text + link)
 //     let buttons = [
