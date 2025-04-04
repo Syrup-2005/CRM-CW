@@ -141,11 +141,10 @@ a:hover {
 .sidebar a:hover {
     background-color: var(--sidebar-hover-color);
 }
-.navbar
-{
+.navbar {
     justify-self: center;
     align-self: center;
-    border: 2px solid black;
+    /* border: 2px solid black; */
 }
 .navbar-brand {
     padding: 8px;
