@@ -9,15 +9,19 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-$stmt = $conn->prepare("SELECT Name, Email FROM users WHERE user_id = ?");
+$stmt = $conn->prepare("SELECT Name, Email, Company, Position, Phone_number, Address FROM users WHERE user_id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
-$stmt->bind_result($name, $email);
+$stmt->bind_result($name, $email, $company, $position, $phone_number, $address);
 $stmt->fetch();
 $stmt->close();
 
 echo json_encode([
     "name" => $name,
-    "email" => $email
+    "email" => $email,
+    "company" => $company,
+    "position" => $position,
+    "phone" => $phone_number,
+    "address" => $address
 ]);
 ?>
