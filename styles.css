@@ -62,6 +62,14 @@
     text-align: center;
 }
 
+/* specifically for login page */
+.card
+{
+    background-color: var(--container-bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease-in-out;
+}
+
 /* Form styling */
 form {
     display: flex;
@@ -230,7 +238,7 @@ a:hover {
 .logout:hover 
 {
     box-shadow: 
-        0px 6px maroon,
+        0px 6px firebrick,
         0px 12px 4px 1px rgb(153, 153, 153);
 }
 

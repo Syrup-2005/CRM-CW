@@ -56,6 +56,24 @@ document.addEventListener("DOMContentLoaded", function() {
     .catch(error => console.error("Error fetching user data:", error));
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    fetch("get_user_data.php") //Linked to get user data.php, need to update the db 
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            document.getElementById("user-name").innerText = "Error loading data";
+        } else {
+            document.getElementById("user-name").innerText = data.name;
+            document.getElementById("user-company").innerText = data.company;
+            document.getElementById("user-email").innerText = data.email;
+            document.getElementById("user-phone").innerText = data.phoneNumber;
+            document.getElementById("user-address").innerText = data.address;
+            document.getElementById("profile-pic").src = data.profile_picture || "default.jpg";
+        }
+    })
+    .catch(error => console.error("Error fetching user data:", error));
+});
+
 // creating dynamic buttons
 // document.addEventListener("DOMContentLoaded", function() {
 //     // Button data (text + link)
