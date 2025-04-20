@@ -10,7 +10,7 @@ if (!isset($_SESSION["user_id"])) {
 require "db_connection.php"; // Include database connection
 
 $user_id = $_SESSION["user_id"];
-$query = $conn->prepare("SELECT Name, Company, Email, PhoneNumber, Address, profile_picture FROM users WHERE id = ?");
+$query = $conn->prepare("SELECT Name, Company, Email, PhoneNumber, Position, Address, profile_picture FROM users WHERE id = ?");
 $query->bind_param("i", $user_id);
 $query->execute();
 $result = $query->get_result();
