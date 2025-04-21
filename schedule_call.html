@@ -10,7 +10,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            fetch('get_customer_data.php')
+            fetch('get_customer.php')
                 .then(response => response.json())
                 .then(data => {
                     const customerSelect = document.getElementById('customer_id');
@@ -136,7 +136,7 @@
                 <option value="follow-up">Follow-Up</option>
                 <option value="support">Support</option>
                 <option value="sales">Sales Call</option>
-                <option value="sales">Progress Report</option>
+                <option value="progress">Progress Report</option>
                 </select>
             </div>
 
@@ -146,6 +146,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Schedule Call</button>
+            
         </form>
     </div>
 

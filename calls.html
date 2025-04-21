@@ -19,7 +19,7 @@
             data.forEach(call => {
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td>${call.customer}</td>
+                <td>${call.customer_id}</td>
                 <td>${call.datetime}</td>
                 <td>${call.call_type}</td>
                 <td>${call.notes}</td>
@@ -117,14 +117,23 @@
     </div>
 
     <!-- Main Content Section -->
-    <div class="container mt-5">
+    <div class="card">
     <h1>Upcoming calls</h1>
-
-        <table class="table">
-            <thead>...</thead>
-            <tbody></tbody>
-        </table>
-
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Date and Time</th>
+                        <th>Call Type</th>
+                        <th>Notes / Agenda</th>
+    
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        
         <a href="schedule_call.html" class="btn btn-primary">Schedule New Call</a>
     </div>
 
