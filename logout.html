@@ -4,40 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logged Out</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 100px;
-        }
-        .container {
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        a {
-            text-decoration: none;
-            color: white;
-            background-color: #007bff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 20px;
-        }
-    </style>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="styles_background.css">
     <script src="functions.js" defer></script>
 </head>
 <body>
+    <!-- wave designs on top of page -->
+    <div class="top-waves">
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="wave wave4"></div>
+        <div class="corner"></div>
+    </div>
+
+    <!-- darkmode button -->
+    <input type="checkbox" id="darkmode-toggle" class="darkmode-toggle">
+    <label for="darkmode-toggle" class="darkmode-btn"></label>
+    
     <div class="container">
         <h2>Are you sure you want to log out?</h2>
-        <a href="logout.php" class="btn btn-danger">Logout</a>
-        
-        <a href="dashboard.html">Back to Dashboard</a>
+
+        <div class="button-container">
+            <a href="logout.php" class="general-btns logout">Logout</a>
+            <a href="dashboard.html" class="general-btns">Back to Dashboard</a>
+        </div>
     </div>
 </body>
 </html>

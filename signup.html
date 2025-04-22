@@ -13,6 +13,19 @@
 </head>
 
 <body class="d-flex justify-content-center align-items-center vh-100 bg-shadow">
+    <!-- wave designs on top of page -->
+    <div class="top-waves">
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="wave wave4"></div>
+        <div class="corner"></div>
+    </div>
+
+    <!-- darkmode button -->
+    <input type="checkbox" id="darkmode-toggle" class="darkmode-toggle">
+    <label for="darkmode-toggle" class="darkmode-btn"></label>
+    
     <div class="card p-4 shadow-lg" style="width: 350px;">
         <h2 class="text-center mb-3">Sign Up</h2>
 
@@ -48,7 +61,10 @@
                 <small id="passwordMismatch" class="form-text text-danger d-none">Passwords do not match.</small>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">Submit</button>
+            <div class="button-container">
+                <button type="submit" class="general-btns">Submit</button>
+            </div>
+            
         </form>
     </div>
     
