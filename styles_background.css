@@ -62,6 +62,7 @@ body
     position: absolute;
     top: 2%; 
     right: 2%; 
+    z-index: 1;
 
     display: block;
     background-color: white;
@@ -120,6 +121,7 @@ body
     height: 100vh;
     background: transparent;
     overflow: hidden;
+    pointer-events: none; /* prevents mouse events */
 }
 
 .top-waves .wave
@@ -135,6 +137,7 @@ body
     background: url(images/wave.png);
     background-size: 1000px 250px; /* same as height */
     filter: invert(var(--wave-filter-color)); 
+    pointer-events: none; /* prevents mouse events */
 }
 
 .top-waves .wave.wave1
