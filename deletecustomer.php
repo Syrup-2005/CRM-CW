@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Step 1: Delete related calls from the calls table
+    // Delete related calls from the calls table
     $delete_calls_sql = "DELETE FROM calls WHERE customer_id = ?";
     if ($stmt_calls = $conn->prepare($delete_calls_sql)) {
         $stmt_calls->bind_param("i", $customer_id);
@@ -31,7 +31,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Error preparing delete calls statement: " . $conn->error . "<br>";
     }
 
-    // Step 2: Delete the customer from the customers table
+    // Delete related meetings from the meetings table
+    $delete_meetings_sql = "DELETE FROM meetings WHERE customer_id = ?";
+    if ($stmt_meetings = $conn->prepare($delete_meetings_sql)) {
+        $stmt_meetings->bind_param("i", $customer_id);
+        
+        if ($stmt_meetings->execute()) {
+            echo "Related meetings deleted successfully.<br>";
+        } else {
+            echo "Error deleting related meetings: " . $stmt_meetings->error . "<br>";
+        }
+        $stmt_meetings->close();
+    } else {
+        echo "Error preparing delete meetings statement: " . $conn->error . "<br>";
+    }
+
+    // Delete the customer from the customers table
     $sql = "DELETE FROM customers WHERE customer_id = ?";
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("i", $customer_id); // assuming `customer_id` is INT

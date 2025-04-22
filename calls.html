@@ -17,14 +17,14 @@
             tbody.innerHTML = "<tr><td colspan='4'>No upcoming calls scheduled.</td></tr>";
         } else {
             data.forEach(call => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${call.customer_id}</td>
-                <td>${call.datetime}</td>
-                <td>${call.call_type}</td>
-                <td>${call.notes}</td>
-            `;
-            tbody.appendChild(row);
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${call.customer_id}</td>
+                    <td>${call.datetime}</td>
+                    <td>${call.call_type}</td>
+                    <td>${call.notes}</td>
+                `;
+                tbody.appendChild(row);
             });
         }
         });
@@ -97,17 +97,13 @@
 <body>
     <!-- Sidebar Navigation -->
     <div class="sidebar" id="sidebar">
-        <h4 class="text-center text-light">CRM Menu</h4>
         <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i><span class="sidebar-text"> Dashboard</span></a>
         <a href="profile.html"><i class="fas fa-user"></i><span class="sidebar-text"> My Profile</span></a>
-        <a href="customer.html"><i class="fas fa-customer"></i><span class="sidebar-text">Customers</span></a>
+        <a href="customer.html"><i class="fas fa-customer"></i><span class="sidebar-text"> Customers</span></a>
         <a href="reports.html"><i class="fas fa-chart-line"></i><span class="sidebar-text"> Reports</span></a>
         <a href="meetings.html"><i class="fas fa-calendar-alt"></i><span class="sidebar-text"> Set Up Meetings</span></a>
         <a href="calls.html"><i class="fas fa-phone"></i><span class="sidebar-text"> Schedule Calls</span></a>
-        <a href="emails.html"><i class="fas fa-envelope"></i><span class="sidebar-text"> Send Emails</span></a>
-        <a href="progresstracker.html"><i class="fas fa-chart-line"></i><span class="sidebar-text"> Progress Tracker</span></a>
-        <a href="managecustomers.html"><i class="fas fa-chart-line"></i><span class="sidebar-text">Manage Customers</span></a>
-        <a href="bugreport.html"><i class="fas fa-bug"></i><span class="sidebar-text"> Bug Report</span></a>
+        <a href="interactions.html"><i class="fas fa-interactions"></i><span class="sidebar-text"> Interaction History</span></a>
         <a href="logout.html"><i class="fas fa-sign-out-alt"></i><span class="sidebar-text"> Logout</span></a>
     </div>
 
@@ -135,6 +131,7 @@
         </div>
         
         <a href="schedule_call.html" class="btn btn-primary">Schedule New Call</a>
+        <a href="deletecall.html" class="btn btn-danger">Delete Calls</a>
     </div>
 
     <!-- Bootstrap JavaScript -->
