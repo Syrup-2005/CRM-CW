@@ -35,8 +35,9 @@
 }
 
 .content {
-    width: 100%;
-    margin: 100px;
+    height: 100%;
+    width: clamp(670px, 100%, 1470px);
+    margin: auto;
     padding: 20px;
 
     display: flex;
@@ -50,7 +51,23 @@
 
 /* Container for forms */
 .container {
-    width: 50%;
+    width: clamp(470px, 50%, 670px);
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--container-bg-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Container for tables */
+.table-container {
+    width: clamp(670px, 1070px, 1270px);
     padding: 20px;
 
     display: flex;
@@ -209,6 +226,7 @@ nav {
     width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -251,6 +269,7 @@ nav svg {
     .links-container {
         /* display: none; */
         flex-direction: column;
+        justify-content: flex-start;
         align-items: flex-end;
 
         position: fixed;
@@ -287,6 +306,7 @@ nav svg {
         background: rgba(0, 0, 0, 0.5);
         height: 100%;
         width: 100%;
+
         position: fixed;
         top: 0;
         left: 0;
