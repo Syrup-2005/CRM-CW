@@ -23,19 +23,19 @@ toggle.addEventListener("change", function () {
 });
 
 // Sidebar Toggle Script
-function toggleSidebar() {
-    let sidebar = document.getElementById("sidebar");
-    // let content = document.querySelector(".content");
-    let toggleBtn = document.querySelector(".toggle-btn");
+// function toggleSidebar() {
+//     let sidebar = document.getElementById("sidebar");
+//     // let content = document.querySelector(".content");
+//     let toggleBtn = document.querySelector(".toggle-btn");
 
-    sidebar.classList.toggle("collapsed");
-    // content.classList.toggle("collapsed");
-    toggleBtn.classList.toggle("collapsed");
+//     sidebar.classList.toggle("collapsed");
+//     // content.classList.toggle("collapsed");
+//     toggleBtn.classList.toggle("collapsed");
 
-    // Adjust toggle button position dynamically
-    if (sidebar.classList.contains("collapsed")) {
-        toggleBtn.style.left = "80px";
-    } else {
-        toggleBtn.style.left = "260px";
-    }
-}
+//     // Adjust toggle button position dynamically
+//     if (sidebar.classList.contains("collapsed")) {
+//         toggleBtn.style.left = "80px";
+//     } else {
+//         toggleBtn.style.left = "260px";
+//     }
+// }

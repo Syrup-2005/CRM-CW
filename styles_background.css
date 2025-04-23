@@ -6,8 +6,14 @@
     --wave-filter-color: 0%;
     
     --text-color: black;
-    --container-bg-color: #EEEEFF;
-    --sidebar-hover-color: #FFFAFA;
+    --container-bg-color: #EEEEFF; /* titan white */
+    --sidebar-bg-color: #F9F9F7; 
+    --sidebar-hover-color: #EFEEE8; /* rose white */
+
+    --general-btn-text-color: #EEEEFF;
+    --general-btn-bg-color: #007bff;
+    --general-btn-border-color: none;
+    --general-btn-insetbox-color: none;
 }
 
 .dark-mode
@@ -17,9 +23,15 @@
     --gradient-color3: rgb(67, 21, 94); 
     --wave-filter-color: 95%;
     
-    --text-color: white;
-   --container-bg-color: rgb(38, 38, 38);
-   --sidebar-hover-color: #495057;
+    --text-color: #eee;
+    --container-bg-color: #202225;
+    --sidebar-bg-color: #2f3136; 
+    --sidebar-hover-color: #202225;
+
+    --general-btn-text-color: #eee;
+    --general-btn-bg-color: #2f3136;
+    --general-btn-border-color: black;
+    --general-btn-insetbox-color: rgb(60, 60, 60);
 }
 
 body {
@@ -52,6 +64,7 @@ body
     width: 0;
     height: 0;
     visibility: hidden;
+    display: none;
 }
 
 /* label */
@@ -59,9 +72,11 @@ body
 {
     width: 40px;
     height: 20px;
-    position: absolute;
-    top: 2%; 
-    right: 2%; 
+    position: relative;
+    padding: 0 20px;
+    margin: 20px 20px;
+    /* top: 2%; 
+    right: 2%;  */
     z-index: 1;
 
     display: block;

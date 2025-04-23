@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logged Out</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="styles_background.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="functions.js" defer></script>
 </head>
 <body>
@@ -18,9 +18,35 @@
         <div class="corner"></div>
     </div>
 
-    <!-- darkmode button -->
-    <input type="checkbox" id="darkmode-toggle" class="darkmode-toggle">
-    <label for="darkmode-toggle" class="darkmode-btn"></label>
+    <!-- Sidebar Navigation -->
+    <nav>
+        <input type="checkbox" id="sidebar-active">
+        <label for="sidebar-active" class="open-sidebar-button">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#e3e3e3"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+        </label>
+
+        <label for="sidebar-active" id="overlay"></label>
+
+        <div class="links-container">
+            <label for="sidebar-active" class="close-sidebar-button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#e3e3e3"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+            </label>
+
+            <!-- <h4 class="text-center">CRM Menu</h4> -->
+            <a class="home-link" href="dashboard.html">Home</a>
+            <a href="profile.html"><i class="fas fa-user"></i><span class="sidebar-text"> My Profile</span></a>
+            <a href="customer.html"><i class="fas fa-customer"></i><span class="sidebar-text"> Customers</span></a>
+            <a href="reports.html"><i class="fas fa-chart-line"></i><span class="sidebar-text"> Reports</span></a>
+            <a href="meetings.html"><i class="fas fa-calendar-alt"></i><span class="sidebar-text"> Set Up Meetings</span></a>
+            <a href="calls.html"><i class="fas fa-phone"></i><span class="sidebar-text"> Schedule Calls</span></a>
+            <a href="interactions.html"><i class="fas fa-interactions"></i><span class="sidebar-text"> Interaction History</span></a>
+            <a href="logout.html"><i class="fas fa-sign-out-alt"></i><span class="sidebar-text"> Logout</span></a>
+
+            <!-- darkmode button -->
+            <input type="checkbox" id="darkmode-toggle" class="darkmode-toggle">
+            <label for="darkmode-toggle" class="darkmode-btn"></label>
+        </div>
+    </nav>
     
     <div class="container">
         <h2>Are you sure you want to log out?</h2>
