@@ -1,13 +1,12 @@
 :root
 {
     --base-bg-color: #ffe1f2;
-    --wave-filter-color: 0%;
     
     --text-color: black;
     --container-bg-color: #EEEEFF; /* titan white */
     --navbar-bg-color: rgba(249, 249, 247, 0.7); 
     --sidebar-bg-color: #f9f9f7; 
-    --sidebar-hover-color: #EEEEFF; /* rose white */
+    --sidebar-hover-color: #EEEEFF; 
     
     --general-btn-text-color: #EEEEFF;
     --general-btn-bg-color: #007bff;
@@ -18,7 +17,6 @@
 .dark-mode
 {
     --base-bg-color: #202225;
-    --wave-filter-color: 95%;
     
     --text-color: #eee;
     --container-bg-color: #40444b;
