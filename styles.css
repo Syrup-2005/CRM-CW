@@ -9,6 +9,7 @@
     --sidebar-hover-color: #dddddd; /* rose white */
 
     --login-overlay-color: #ff9fd7;
+    --input-bg-color: #cdcddb;
     
     --general-btn-text-color: #EEEEFF;
     --general-btn-bg-color: #007bff;
@@ -27,11 +28,40 @@
     --sidebar-hover-color: #999999;
     
     --login-overlay-color: #606060;
+    --input-bg-color: #d3d3e2;
     
     --general-btn-text-color: #eee;
     --general-btn-bg-color: #2f3136;
     --general-btn-border-color: black;
     --general-btn-insetbox-color: rgb(60, 60, 60);
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Input fields */
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Error message */
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+/* Success message */
+.success {
+    color: green;
+    font-size: 14px;
 }
 
 .content {
@@ -70,15 +100,15 @@
 }
 
 .login-signup-container {
-    width: clamp(470px, 50%, 670px);
-    height: 70%;
+    position: relative;
+    width: clamp(60%, 75%, 90%);
+    height: clamp(70%, 75%, 90%);
 
+    background-color: var(--container-bg-color);
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    
-    background: #eeeeff1c;
-    backdrop-filter: blur(10px);
     overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
 }
 
 /* Container for tables */
@@ -109,71 +139,132 @@
     transition: all 0.3s ease-in-out;
 }
 
-/* Form styling */
-form {
+.signup-container, .login-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--container-bg-color);
+    overflow: scroll;
+    transition: all 0.6s ease-in-out;
+}
+
+.signup-container {
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.login-container {
+    width: 50%;
+    z-index: 2;
+}
+
+.login-signup-container form {
+    background: var(--container-bg-color);
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    gap: 12px;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
 }
 
-/* Input fields */
-input {
+.login-signup-container input {
+    background: var(--input-bg-color);
+    padding: 12px 15px;
+    margin: 8px 15px;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
-}
-
-/* Submit button */
-button {
-    background-color: #28a745;
-    color: var(--text-color);
-    padding: 10px;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
+    outline: none;
 }
 
-/* button:hover {
-    background-color: #218838;
-} */
-
-/* Error message */
-.error {
-    color: red;
-    font-size: 14px;
+.login-signup-container.right-panel-active .login-container {
+    transform: translateX(100%);
 }
 
-/* Success message */
-.success {
-    color: green;
-    font-size: 14px;
+.login-signup-container.right-panel-active .signup-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
 }
 
-/* Link styling */
-a {
-    text-decoration: none;
-    color: #007bff;
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
 }
 
-a:hover {
-    text-decoration: underline;
+.login-signup-container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
 }
 
+.overlay {
+    position: relative;
+    color: #eee;
+    background: hotpink;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    background: linear-gradient(to right, #ff7328, #ff228c);
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.login-signup-container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.overlay-left, .overlay-right {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+    transform: translateX(-20%);
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.login-signup-container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+.login-signup-container.right-panel-active .overlay-right {
+    transform: translateX(20%);
+}
+
+/* 
 #chk {
     display: none;
 }
 
 .signup-container {
-    /* position: relative; */
     width: 100%;
     height: 100%;
 }
 
 .signup-container #signup-title, .login-container #login-title {
-    /* position: relative; */
     margin: 20px;
 
     display: flex;
@@ -242,7 +333,7 @@ a:hover {
     margin: 0;
     height: 20px;
     cursor: pointer;
-}
+} */
 
 nav {
     position: fixed;
@@ -371,6 +462,7 @@ nav svg {
     padding: 8px 16px;
     margin: 24px;
     box-sizing: border-box;
+    text-decoration: none;
 
     /* 
     - position must be set to relative bc sidebar's position is fixed,
@@ -402,6 +494,14 @@ nav svg {
     box-shadow: 
         0px 6px navy,
         0px 12px 4px 1px rgb(153, 153, 153);
+}
+
+.general-btns:active {
+    transform: translateY(0px);
+    box-shadow: 
+        inset 0px 4px var(--general-btn-insetbox-color),
+        0px 0px 20px 4px #04D9FF;
+    transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .logout {background-color: red;}
