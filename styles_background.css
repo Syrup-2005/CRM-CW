@@ -134,7 +134,7 @@ body
         background-position: 0% 100%;
     }
 }
-
+/* 
 .top-waves
 {
     position: fixed;
@@ -142,7 +142,7 @@ body
     height: 100vh;
     background: transparent;
     overflow: hidden;
-    pointer-events: none; /* prevents mouse events */
+    pointer-events: none; // prevents mouse events
 }
 
 .top-waves .wave
@@ -156,15 +156,15 @@ body
     rotate: 180deg;
     
     background: url(images/wave.png);
-    background-size: 1000px 250px; /* same as height */
+    background-size: 1000px 250px; // same as height
     filter: invert(var(--wave-filter-color)); 
-    pointer-events: none; /* prevents mouse events */
+    pointer-events: none; // prevents mouse events
 }
 
 .top-waves .wave.wave1
 {
     animation: waveAnimation 10s linear infinite;
-    z-index: 4; /* sets position on layer */
+    z-index: 4; // sets position on layer
     opacity: 0.7;
     animation-delay: 0s;
     top: -100px;
@@ -173,7 +173,7 @@ body
 .top-waves .wave.wave2
 {
     animation: waveAnimation 5s linear infinite;
-    z-index: 3; /* sets position on layer */
+    z-index: 3; // sets position on layer
     opacity: 0.6;
     animation-delay: -5s;
     top: -35px;
@@ -182,7 +182,7 @@ body
 .top-waves .wave.wave3
 {
     animation: waveAnimation 15s linear infinite;
-    z-index: 2; /* sets position on layer */
+    z-index: 2; // sets position on layer
     opacity: 0.5;
     animation-delay: -2s;
     top: -20px;
@@ -191,7 +191,7 @@ body
 .top-waves .wave.wave4
 {
     animation: waveAnimation 10s linear infinite;
-    z-index: 1; /* sets position on layer */
+    z-index: 1; // sets position on layer
     opacity: 0.4;
     animation-delay: -7s;
     top: 0px;
@@ -205,6 +205,6 @@ body
     }
     100%
     {
-        background-position-x: -1000px; /* same as bg-size: 1000px _ */
+        background-position-x: -1000px; // same as bg-size: 1000px _
     }
-}
+} */
