@@ -1,15 +1,14 @@
 :root
 {
-    --gradient-color1: rgb(255, 0, 89); 
-    --gradient-color2: red;
-    --gradient-color3: rgb(255, 132, 0);
+    --base-bg-color: #ffe1f2;
     --wave-filter-color: 0%;
     
     --text-color: black;
     --container-bg-color: #EEEEFF; /* titan white */
-    --sidebar-bg-color: #F9F9F7; 
-    --sidebar-hover-color: #EFEEE8; /* rose white */
-
+    --navbar-bg-color: rgba(249, 249, 247, 0.7); 
+    --sidebar-bg-color: #f9f9f7; 
+    --sidebar-hover-color: #EEEEFF; /* rose white */
+    
     --general-btn-text-color: #EEEEFF;
     --general-btn-bg-color: #007bff;
     --general-btn-border-color: none;
@@ -18,14 +17,13 @@
 
 .dark-mode
 {
-    --gradient-color1: rgb(13, 30, 115); 
-    --gradient-color2: rgb(22, 0, 88);
-    --gradient-color3: rgb(67, 21, 94); 
+    --base-bg-color: #202225;
     --wave-filter-color: 95%;
     
     --text-color: #eee;
-    --container-bg-color: #202225;
-    --sidebar-bg-color: #2f3136; 
+    --container-bg-color: #40444b;
+    --navbar-bg-color: rgba(47, 49, 54, 0.5); 
+    --sidebar-bg-color: #292b2f; 
     --sidebar-hover-color: #202225;
 
     --general-btn-text-color: #eee;
@@ -46,39 +44,39 @@
     align-items: center;
 
     transition: margin-left 0.3s ease-in-out;
-    border: 2px solid black;
+    /* border: 2px solid black; */
 }
 
 /* Container for forms */
 .container {
     width: clamp(470px, 50%, 670px);
     padding: 20px;
-
+    border-radius: 8px;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 
     background: var(--container-bg-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
 }
 
 /* Container for tables */
 .table-container {
     width: clamp(670px, 1070px, 1270px);
     padding: 20px;
-
+    border-radius: 8px;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 
     background: var(--container-bg-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
 }
 
 /* specifically for login page */
@@ -86,8 +84,10 @@
 {
     position: fixed;
     z-index: 100;
-    background-color: var(--container-bg-color);
+
     color: var(--text-color);
+    background-color: var(--container-bg-color);
+
     transition: all 0.3s ease-in-out;
 }
 
@@ -213,12 +213,15 @@ nav {
     height: 75px;
     padding-right: 20px;
     padding-left: 0;
+
     position: fixed;
     top: 0;
-    background-color: var(--sidebar-bg-color);
+
     display: flex;
     justify-content: flex-start;
     align-items: center;
+
+    background-color: var(--navbar-bg-color);
 }
 
 .links-container {
@@ -279,8 +282,9 @@ nav svg {
         width: 400px;
 
         background-color: var(--sidebar-bg-color);
+        opacity: 1.0;
         box-shadow: -5px 0 5px rgba(0, 0, 0, 0.25);
-        transition: 0.75s ease-out;
+        transition: 0.75s ease-out, background 0.3s, color 0.3s;
     }
     
     nav a {

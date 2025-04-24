@@ -1,15 +1,14 @@
 :root
 {
-    --gradient-color1: rgb(255, 0, 89); 
-    --gradient-color2: red;
-    --gradient-color3: rgb(255, 132, 0);
+    --base-bg-color: #ffe1f2;
     --wave-filter-color: 0%;
     
     --text-color: black;
     --container-bg-color: #EEEEFF; /* titan white */
-    --sidebar-bg-color: #F9F9F7; 
-    --sidebar-hover-color: #EFEEE8; /* rose white */
-
+    --navbar-bg-color: rgba(249, 249, 247, 0.7); 
+    --sidebar-bg-color: #f9f9f7; 
+    --sidebar-hover-color: #EEEEFF; /* rose white */
+    
     --general-btn-text-color: #EEEEFF;
     --general-btn-bg-color: #007bff;
     --general-btn-border-color: none;
@@ -18,14 +17,13 @@
 
 .dark-mode
 {
-    --gradient-color1: rgb(13, 30, 115); 
-    --gradient-color2: rgb(22, 0, 88);
-    --gradient-color3: rgb(67, 21, 94); 
+    --base-bg-color: #202225;
     --wave-filter-color: 95%;
     
     --text-color: #eee;
-    --container-bg-color: #202225;
-    --sidebar-bg-color: #2f3136; 
+    --container-bg-color: #40444b;
+    --navbar-bg-color: rgba(47, 49, 54, 0.5); 
+    --sidebar-bg-color: #292b2f; 
     --sidebar-hover-color: #202225;
 
     --general-btn-text-color: #eee;
@@ -36,7 +34,7 @@
 
 body {
     font-family: 'Times New Roman', Times, serif;
-    background-color: #858080;
+    background-color: var(--base-bg-color);
     margin: 0;
     padding: 0;
     display: flex;
@@ -50,12 +48,20 @@ body
     font-family: Arial, sans-serif;
     color: var(--text-color); /* Adjust text color for visibility */
 
-    background: linear-gradient(45deg, var(--gradient-color1), var(--gradient-color2), var(--gradient-color3), var(--gradient-color2), var(--gradient-color1), var(--gradient-color2), var(--gradient-color3), var(--gradient-color2), var(--gradient-color1));
+    /* background: linear-gradient(45deg, var(--gradient-color1), var(--gradient-color2), var(--gradient-color3), var(--gradient-color2), var(--gradient-color1), var(--gradient-color2), var(--gradient-color3), var(--gradient-color2), var(--gradient-color1)); */
     background-size: 200% 200%;
     background-repeat: no-repeat;
 
     animation: gradientAnimation 15s linear infinite;
     transition: color 0.3s ease;
+}
+
+.header {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* input type="checkbox" */
