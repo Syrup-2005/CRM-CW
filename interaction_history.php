@@ -56,7 +56,7 @@
                         <option value="all">All</option>
                         <option value="call">Call</option>
                         <option value="meeting">Meeting</option>
-                        <option value="email">Email</option>
+                        <!-- <option value="email">Email</option> -->
                     </select>
 
                     <label for="purpose">Select Purpose of Interaction:</label>
