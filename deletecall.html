@@ -26,7 +26,7 @@
                 row.innerHTML = `
                     <td>${call.customer_id}</td>
                     <td>${call.datetime}</td>
-                    <td>${call.call_type}</td>
+                    <td>${call.call_purpose}</td>
                     <td>${call.notes}</td>
                 `;
                 tbody.appendChild(row);
@@ -35,7 +35,7 @@
                 if (!Array.from(dropdown.options).some(option => option.value === call.customer_id)) {
                     const option = document.createElement("option");
                     option.value = call.call_id;
-                    option.text = `Customer ${call.customer_id} - ${call.call_type} on ${call.datetime}`;
+                    option.text = `Customer ${call.customer_id} - ${call.call_purpose} on ${call.datetime}`;
                     select.appendChild(option);
                 }
             });
@@ -124,7 +124,7 @@
                     <tr>
                         <th>Customer ID</th>
                         <th>Date and Time</th>
-                        <th>Call Type</th>
+                        <th>Purpose of Call</th>
                         <th>Notes / Agenda</th>
                     </tr>
                 </thead>

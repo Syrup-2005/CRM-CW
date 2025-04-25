@@ -12,7 +12,7 @@ $sql = "";
 if ($type == 'all') {
     // When the type is 'all', get results from all interactions (calls, meetings, emails)
     $sql = "
-        SELECT 'Call' AS type, c.customer_id, cu.customer_name, cu.email, c.datetime AS date, c.call_type AS interaction_type, c.notes 
+        SELECT 'Call' AS type, c.customer_id, cu.customer_name, cu.email, c.datetime AS date, c.call_purpose AS interaction_type, c.notes 
         FROM calls c
         JOIN customers cu ON cu.customer_id = c.customer_id
         WHERE c.datetime >= DATE_SUB(NOW(), INTERVAL 10 YEAR)";
@@ -20,7 +20,7 @@ if ($type == 'all') {
     $sql .= " UNION ";
     
     $sql .= "
-        SELECT 'Meeting' AS type, m.customer_id, cu.customer_name, cu.email, m.meeting_date AS date, m.meeting_type AS interaction_type, m.notes 
+        SELECT 'Meeting' AS type, m.customer_id, cu.customer_name, cu.email, m.meeting_date AS date, m.meeting_purpose AS interaction_type, m.notes 
         FROM meetings m
         JOIN customers cu ON cu.customer_id = m.customer_id
         WHERE m.meeting_date >= DATE_SUB(NOW(), INTERVAL 10 YEAR)";
@@ -36,13 +36,13 @@ if ($type == 'all') {
     // Filter based on the selected interaction type
     if ($type == 'call') {
         $sql = "
-            SELECT 'Call' AS type, c.customer_id, cu.customer_name, cu.email, c.datetime AS date, c.call_type AS interaction_type, c.notes 
+            SELECT 'Call' AS type, c.customer_id, cu.customer_name, cu.email, c.datetime AS date, c.call_purpose AS interaction_type, c.notes 
             FROM calls c
             JOIN customers cu ON cu.customer_id = c.customer_id
             WHERE c.notes LIKE ? AND c.datetime >= DATE_SUB(NOW(), INTERVAL 10 YEAR)";
     } elseif ($type == 'meeting') {
         $sql = "
-            SELECT 'Meeting' AS type, m.customer_id, cu.customer_name, cu.email, m.meeting_date AS date, m.meeting_type AS interaction_type, m.notes 
+            SELECT 'Meeting' AS type, m.customer_id, cu.customer_name, cu.email, m.meeting_date AS date, m.meeting_purpose AS interaction_type, m.notes 
             FROM meetings m
             JOIN customers cu ON cu.customer_id = m.customer_id
             WHERE m.notes LIKE ? AND m.meeting_date >= DATE_SUB(NOW(), INTERVAL 10 YEAR)";

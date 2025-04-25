@@ -4,11 +4,11 @@ include 'db_connection.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $customer_id = mysqli_real_escape_string($conn, $_POST['customer_id']);
     $datetime = mysqli_real_escape_string($conn, $_POST['datetime']);
-    $call_type = mysqli_real_escape_string($conn, $_POST['call_type']);
+    $call_purpose = mysqli_real_escape_string($conn, $_POST['call_purpose']);
     $notes = mysqli_real_escape_string($conn, $_POST['notes']);
 
-    $query = "INSERT INTO calls (customer_id, datetime, call_type, notes)
-              VALUES ('$customer_id', '$datetime', '$call_type', '$notes')";
+    $query = "INSERT INTO calls (customer_id, datetime, call_purpose, notes)
+              VALUES ('$customer_id', '$datetime', '$call_purpose', '$notes')";
 
     if (mysqli_query($conn, $query)) {
         echo "<script>

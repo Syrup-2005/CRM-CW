@@ -5,12 +5,12 @@ require 'db_connection.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $customer_id = mysqli_real_escape_string($conn, $_POST['customer_id']);
     $meeting_date = mysqli_real_escape_string($conn, $_POST['meeting_date']);
-    $meeting_type = mysqli_real_escape_string($conn, $_POST['meeting_type']);
+    $meeting_purpose = mysqli_real_escape_string($conn, $_POST['meeting_purpose']);
     $notes = mysqli_real_escape_string($conn, $_POST['notes']);
     $admin_id = mysqli_real_escape_string($conn, $_POST['admin_id']);
 
-    $query = "INSERT INTO meetings (customer_id, meeting_date, meeting_type, notes, user_id)
-              VALUES ('$customer_id', '$meeting_date', '$meeting_type', '$notes', '$admin_id')";
+    $query = "INSERT INTO meetings (customer_id, meeting_date, meeting_purpose, notes, user_id)
+              VALUES ('$customer_id', '$meeting_date', '$meeting_purpose', '$notes', '$admin_id')";
 
     if (mysqli_query($conn, $query)) {
         echo "<script>

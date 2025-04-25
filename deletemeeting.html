@@ -29,7 +29,7 @@
                         row.innerHTML = `
                             <td>${meeting.customer_id}</td>
                             <td>${meeting.meeting_date}</td>
-                            <td>${meeting.meeting_type}</td>
+                            <td>${meeting.meeting_purpose}</td>
                             <td>${meeting.notes ?? ''}</td>
                         `;
                         tbody.appendChild(row);
@@ -125,7 +125,7 @@
                     <tr>
                         <th>Customer ID</th>
                         <th>Meeting Date</th>
-                        <th>Meeting Type</th>
+                        <th>Purpose of Meeting</th>
                         <th>Notes / Agenda</th>
                     </tr>
                 </thead>

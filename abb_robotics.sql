@@ -31,7 +31,7 @@ CREATE TABLE `calls` (
   `call_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `datetime` datetime NOT NULL,
-  `call_type` varchar(50) NOT NULL,
+  `call_purpose` varchar(50) NOT NULL,
   `notes` text,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -72,7 +72,7 @@ CREATE TABLE `meetings` (
   `user_id` int(11) NOT NULL,
   `meeting_date` datetime NOT NULL,
   `notes` text,
-  `meeting_type` varchar(100) DEFAULT NULL
+  `meeting_purpose` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
