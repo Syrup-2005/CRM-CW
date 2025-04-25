@@ -32,10 +32,9 @@
                 <a class="home-link" href="dashboard.html">Home</a>
                 <a href="profile.html"><i class="fas fa-user"></i><span class="sidebar-text"> My Profile</span></a>
                 <a href="customer.html"><i class="fas fa-customer"></i><span class="sidebar-text"> Customers</span></a>
-                <a href="reports.html"><i class="fas fa-chart-line"></i><span class="sidebar-text"> Reports</span></a>
-                <a href="meetings.html"><i class="fas fa-calendar-alt"></i><span class="sidebar-text"> Set Up Meetings</span></a>
-                <a href="calls.html"><i class="fas fa-phone"></i><span class="sidebar-text"> Schedule Calls</span></a>
-                <a href="interactions.html"><i class="fas fa-interactions"></i><span class="sidebar-text"> Interaction History</span></a>
+                <a href="meetings.html"><i class="fas fa-calendar-alt"></i><span class="sidebar-text"> Meetings</span></a>
+                <a href="calls.html"><i class="fas fa-phone"></i><span class="sidebar-text"> Calls</span></a>
+                <a href="interaction_history.php"><i class="fas fa-interactions"></i><span class="sidebar-text"> Interaction History</span></a>
                 <a href="logout.html"><i class="fas fa-sign-out-alt"></i><span class="sidebar-text"> Logout</span></a>
     
                 <!-- darkmode button -->
@@ -60,6 +59,16 @@
                         <option value="email">Email</option>
                     </select>
 
+                    <label for="purpose">Select Purpose of Interaction:</label>
+                    <select id="purpose" name="purpose">
+                        <option value="">All</option>
+                        <option value="initial">Initial Contact</option>
+                        <option value="follow-up">Follow-Up</option>
+                        <option value="support">Support</option>
+                        <option value="sales">Sales call</option>
+                        <option value="progress">Progress Report</option>
+                    </select>
+
                     <input type="submit" value="Search">
                 </form>
 
@@ -78,6 +87,7 @@
                                 <th>Email</th>
                                 <th>Date</th>
                                 <th>Interaction Type</th>
+                                <th>Interaction Purpose</th>
                                 <th>Description</th>
                             </tr>
                         </thead>
@@ -93,27 +103,29 @@
         // Autofill input with clicked suggestion
         document.querySelectorAll('.suggestion-bubble').forEach(bubble => {
             bubble.addEventListener('click', () => {
-            document.getElementById('query').value = bubble.textContent;
+                document.getElementById('query').value = bubble.textContent;
             });
         });
-    </script>
-    <script>
-
+        
+        
         document.getElementById('search-form').addEventListener('submit', function(event) {
             event.preventDefault();
 
-            const query = document.getElementById('query').value || '';  // Empty string for optional search
+            const query = document.getElementById('query').value || '';
             const type = document.getElementById('type').value;
+            const purpose = document.getElementById('purpose').value || '';
 
-            // Fetch results based on the search parameters
-            fetch(`search_interaction.php?query=${query}&type=${type}`)
+            // Build the fetch URL with all parameters
+            const url = `search_interaction.php?query=${encodeURIComponent(query)}&type=${encodeURIComponent(type)}&purpose=${encodeURIComponent(purpose)}`;
+
+            fetch(url)
                 .then(res => res.json())
                 .then(data => {
                     const tbody = document.getElementById("interaction-table-body");
-                    tbody.innerHTML = '';  // Clear any existing data
+                    tbody.innerHTML = ''; // Always clear first
 
                     if (data.length === 0) {
-                        tbody.innerHTML = "<tr><td colspan='6'>No interactions found.</td></tr>";
+                        tbody.innerHTML = "<tr><td colspan='7'>No interactions found.</td></tr>";
                     } else {
                         data.forEach(interaction => {
                             const row = document.createElement("tr");
@@ -122,12 +134,16 @@
                                 <td>${interaction.customer_name}</td>
                                 <td>${interaction.email}</td>
                                 <td>${interaction.date}</td>
-                                <td>${interaction.interaction_type}</td>
+                                <td>${interaction.type}</td>
+                                <td>${interaction.interaction_purpose}</td>
                                 <td>${interaction.notes}</td>
                             `;
                             tbody.appendChild(row);
                         });
                     }
+                })
+                .catch(err => {
+                    console.error("Search error:", err);
                 });
         });
     </script>

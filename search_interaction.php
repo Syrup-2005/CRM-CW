@@ -2,69 +2,56 @@
 header('Content-Type: application/json');
 include 'db_connection.php';
 
-// Get the query and type parameters from the GET request
+// Get the query, type, and purpose parameters from the GET request
 $query = isset($_GET['query']) ? "%" . $_GET['query'] . "%" : "%";
 $type = isset($_GET['type']) ? $_GET['type'] : 'all';
+$purpose = isset($_GET['purpose']) ? "%" . $_GET['purpose'] . "%" : "%";
 
-// Base SQL query to fetch interactions based on type
+// Base SQL query to fetch interactions based on type and purpose
 $sql = "";
 
+// All interaction types
 if ($type == 'all') {
-    // When the type is 'all', get results from all interactions (calls, meetings, emails)
+    // Query for Calls
     $sql = "
-        SELECT 'Call' AS type, c.customer_id, cu.customer_name, cu.email, c.datetime AS date, c.call_purpose AS interaction_type, c.notes 
+        SELECT 'Call' AS type, c.customer_id, cu.customer_name, cu.email, c.datetime AS date, c.call_purpose AS interaction_purpose, c.notes 
         FROM calls c
         JOIN customers cu ON cu.customer_id = c.customer_id
-        WHERE c.datetime >= DATE_SUB(NOW(), INTERVAL 10 YEAR)";
-
+        WHERE c.datetime >= DATE_SUB(NOW(), INTERVAL 10 YEAR) AND c.notes LIKE ? AND c.call_purpose LIKE ?";
+    
     $sql .= " UNION ";
     
+    // Query for Meetings
     $sql .= "
-        SELECT 'Meeting' AS type, m.customer_id, cu.customer_name, cu.email, m.meeting_date AS date, m.meeting_purpose AS interaction_type, m.notes 
+        SELECT 'Meeting' AS type, m.customer_id, cu.customer_name, cu.email, m.meeting_date AS date, m.meeting_purpose AS interaction_purpose, m.notes 
         FROM meetings m
         JOIN customers cu ON cu.customer_id = m.customer_id
-        WHERE m.meeting_date >= DATE_SUB(NOW(), INTERVAL 10 YEAR)";
-
-    $sql .= " UNION ";
-
-    $sql .= "
-        SELECT 'Email' AS type, e.customer_id, cu.customer_name, cu.email, e.datetime AS date, e.email_type AS interaction_type, e.notes 
-        FROM emails e
-        JOIN customers cu ON cu.customer_id = e.customer_id
-        WHERE e.datetime >= DATE_SUB(NOW(), INTERVAL 10 YEAR)";
+        WHERE m.meeting_date >= DATE_SUB(NOW(), INTERVAL 10 YEAR) AND m.notes LIKE ? AND m.meeting_purpose LIKE ?";
 } else {
-    // Filter based on the selected interaction type
+    // Filter based on selected interaction type
     if ($type == 'call') {
         $sql = "
-            SELECT 'Call' AS type, c.customer_id, cu.customer_name, cu.email, c.datetime AS date, c.call_purpose AS interaction_type, c.notes 
+            SELECT 'Call' AS type, c.customer_id, cu.customer_name, cu.email, c.datetime AS date, c.call_purpose AS interaction_purpose, c.notes 
             FROM calls c
             JOIN customers cu ON cu.customer_id = c.customer_id
-            WHERE c.notes LIKE ? AND c.datetime >= DATE_SUB(NOW(), INTERVAL 10 YEAR)";
+            WHERE c.notes LIKE ? AND c.call_purpose LIKE ? AND c.datetime >= DATE_SUB(NOW(), INTERVAL 10 YEAR)";
     } elseif ($type == 'meeting') {
         $sql = "
-            SELECT 'Meeting' AS type, m.customer_id, cu.customer_name, cu.email, m.meeting_date AS date, m.meeting_purpose AS interaction_type, m.notes 
+            SELECT 'Meeting' AS type, m.customer_id, cu.customer_name, cu.email, m.meeting_date AS date, m.meeting_purpose AS interaction_purpose, m.notes 
             FROM meetings m
             JOIN customers cu ON cu.customer_id = m.customer_id
-            WHERE m.notes LIKE ? AND m.meeting_date >= DATE_SUB(NOW(), INTERVAL 10 YEAR)";
-    } elseif ($type == 'email') {
-        $sql = "
-            SELECT 'Email' AS type, e.customer_id, cu.customer_name, cu.email, e.datetime AS date, e.email_type AS interaction_type, e.notes 
-            FROM emails e
-            JOIN customers cu ON cu.customer_id = e.customer_id
-            WHERE e.notes LIKE ? AND e.datetime >= DATE_SUB(NOW(), INTERVAL 10 YEAR)";
+            WHERE m.notes LIKE ? AND m.meeting_purpose LIKE ? AND m.meeting_date >= DATE_SUB(NOW(), INTERVAL 10 YEAR)";
     }
 }
 
 // Prepare and bind the SQL query
 $stmt = $conn->prepare($sql);
 
+// Bind the parameters
 if ($type == 'all') {
-    // No keyword binding for the 'all' case
-    // Only filter by date if no keyword is provided
-    // No binding needed since the query is handling all data types
+    $stmt->bind_param("ssss", $query, $purpose, $query, $purpose);
 } else {
-    // Bind the query parameter for 'like' search
-    $stmt->bind_param("s", $query);
+    $stmt->bind_param("ss", $query, $purpose);
 }
 
 $stmt->execute();
@@ -79,10 +66,12 @@ if ($result->num_rows > 0) {
             'customer_name' => $row['customer_name'],
             'email' => $row['email'],
             'date' => $row['date'],
-            'interaction_type' => $row['interaction_type'],
+            'type' => $row['type'],
+            'interaction_purpose' => $row['interaction_purpose'],
             'notes' => $row['notes']
         ];
     }
+    
 }
 
 echo json_encode($interactions);
