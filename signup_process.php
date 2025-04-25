@@ -2,6 +2,9 @@
 session_start();
 require 'db_connection.php'; // Include database connection
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     die("405 Method Not Allowed");
 }
@@ -14,19 +17,19 @@ $confirm_password = isset($_POST['confirm_password']) ? trim($_POST['confirm_pas
 // Validate inputs
 if (empty($name) || empty($email) || empty($password) || empty($confirm_password)) {
     $_SESSION['error'] = "All fields are required.";
-    header("Location: signup.html");
+    header("Location: login.html");
     exit();
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $_SESSION['error'] = "Invalid email format.";
-    header("Location: signup.html");
+    header("Location: login.html");
     exit();
 }
 
 if ($password !== $confirm_password) {
     $_SESSION['error'] = "Passwords do not match.";
-    header("Location: signup.html");
+    header("Location: login.html");
     exit();
 }
 
@@ -42,7 +45,7 @@ $stmt->store_result();
 if ($stmt->num_rows > 0) {
     $_SESSION['error'] = "Email is already registered.";
     $stmt->close();
-    header("Location: signup.html");
+    header("Location: login.html");
     exit();
 }
 
@@ -53,7 +56,7 @@ if (!$stmt->execute()) {
 if (!$stmt) {
     error_log("Prepare statement failed: " . $conn->error);
     $_SESSION['error'] = "Something went wrong. Please try again.";
-    header("Location: signup.html");
+    header("Location: login.html");
     exit();
 }
 
@@ -73,7 +76,7 @@ if ($stmt->execute()) {
     $_SESSION['error'] = "Something went wrong. Please try again.";
     $stmt->close();
     $conn->close();
-    header("Location: signup.html");
+    header("Location: login.html");
     exit();
 }
 ?>

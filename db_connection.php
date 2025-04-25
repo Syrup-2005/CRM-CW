@@ -2,7 +2,8 @@
 // Database connection
 $servername = "localhost";
 $username = "root";
-$password = "8518";
+$password = "root";
+// $password = "8518";
 $dbname = "abb_robotics"; 
 
 // Establish connection
