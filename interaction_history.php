@@ -12,7 +12,7 @@
     <script src="functions.js" defer></script>
 </head>
 <body>
-    <div class="header finisher-header" style="width: 100%; height: 100%;">
+    <div class="header finisher-header" style="width: 100vw; height: 100vh;">
     
         <!-- Sidebar Navigation -->
         <nav>
@@ -43,60 +43,65 @@
             </div>
         </nav>
 
-        <h1>Search Interaction History</h1>
+        <div class="two-contents">
+            <div class="content">
+                <h1 class="gradient-abb">ABB Robotics</h1>
+                
+                <div class="container">
+                    <h1>Search Interaction History</h1>
+                    <form id="search-form">
+                        <label for="query">Search by keyword (optional):</label>
+                        <input type="text" id="query" name="query">
 
-        <div class="content">
-            <h1 class="gradient-abb">ABB Robotics</h1>
+                        <label for="type">Select Interaction Type:</label>
+                        <select id="type" name="type">
+                            <option value="all">All</option>
+                            <option value="call">Call</option>
+                            <option value="meeting">Meeting</option>
+                            <!-- <option value="email">Email</option> -->
+                        </select>
 
-            <div class="container">
-                <form id="search-form">
-                    <label for="query">Search by keyword (optional):</label>
-                    <input type="text" id="query" name="query">
+                        <label for="purpose">Select Purpose of Interaction:</label>
+                        <select id="purpose" name="purpose">
+                            <option value="">All</option>
+                            <option value="initial">Initial Contact</option>
+                            <option value="follow-up">Follow-Up</option>
+                            <option value="support">Support</option>
+                            <option value="sales">Sales call</option>
+                            <option value="progress">Progress Report</option>
+                        </select>
 
-                    <label for="type">Select Interaction Type:</label>
-                    <select id="type" name="type">
-                        <option value="all">All</option>
-                        <option value="call">Call</option>
-                        <option value="meeting">Meeting</option>
-                        <!-- <option value="email">Email</option> -->
-                    </select>
+                        <input class="general-btns" type="submit" value="Search">
+                    </form>
 
-                    <label for="purpose">Select Purpose of Interaction:</label>
-                    <select id="purpose" name="purpose">
-                        <option value="">All</option>
-                        <option value="initial">Initial Contact</option>
-                        <option value="follow-up">Follow-Up</option>
-                        <option value="support">Support</option>
-                        <option value="sales">Sales call</option>
-                        <option value="progress">Progress Report</option>
-                    </select>
+                    <div class="suggestion-container">
+                        <?php include 'get_suggestions.php'; ?>
+                    </div>
+                </div> 
+            </div> 
 
-                    <input type="submit" value="Search">
-                </form>
-
-                <div class="suggestion-container">
-                    <?php include 'get_suggestions.php'; ?>
+            <div class="content">
+                <div class="table-container">
+                    <h1>Interaction History</h1>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <th>Customer Name</th>
+                                    <th>Email</th>
+                                    <th>Date</th>
+                                    <th>Interaction Type</th>
+                                    <th>Interaction Purpose</th>
+                                    <th>Status</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody id="interaction-table-body"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div> 
-            <div class="table-container">
-                <h1>Interaction History</h1>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Customer ID</th>
-                                <th>Customer Name</th>
-                                <th>Email</th>
-                                <th>Date</th>
-                                <th>Interaction Type</th>
-                                <th>Interaction Purpose</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody id="interaction-table-body"></tbody>
-                    </table>
-                </div>
-            </div>
         </div> 
     </div> 
 
@@ -127,7 +132,7 @@
                     tbody.innerHTML = ''; // Always clear first
 
                     if (data.length === 0) {
-                        tbody.innerHTML = "<tr><td colspan='7'>No interactions found.</td></tr>";
+                        tbody.innerHTML = "<tr><td colspan='8'>No interactions found.</td></tr>";
                     } else {
                         data.forEach(interaction => {
                             const row = document.createElement("tr");
@@ -138,6 +143,7 @@
                                 <td>${interaction.date}</td>
                                 <td>${interaction.type}</td>
                                 <td>${interaction.interaction_purpose}</td>
+                                <td>${interaction.status}</td>
                                 <td>${interaction.notes}</td>
                             `;
                             tbody.appendChild(row);

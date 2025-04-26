@@ -14,12 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (mysqli_query($conn, $query)) {
         echo "<script>
-            alert('Call scheduled successfully!');
-            window.location.href = 'calls.html';
+            alert('Meeting scheduled successfully!');
+            window.location.href = 'addmeeting.html';
         </script>";
     } else {
         echo "<script>
-            alert('Error: Could not schedule the call. " . mysqli_error($conn) . "');
+            alert('Error: Could not schedule the meeting. " . mysqli_error($conn) . "');
             window.history.back();
         </script>";
     }

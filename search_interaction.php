@@ -13,7 +13,7 @@ $types = "";
 // ALL interactions: use UNION
 if ($type === 'all') {
     $sql = "
-        SELECT 'Call' AS type, c.customer_id, cu.customer_name, cu.email, c.datetime AS date, c.call_purpose AS interaction_purpose, c.notes
+        SELECT 'Call' AS type, c.customer_id, cu.customer_name, cu.email, cu.status, c.datetime AS date, c.call_purpose AS interaction_purpose, c.notes
         FROM calls c
         JOIN customers cu ON cu.customer_id = c.customer_id
         WHERE c.datetime >= DATE_SUB(NOW(), INTERVAL 10 YEAR)
@@ -22,13 +22,14 @@ if ($type === 'all') {
 
         UNION
 
-        SELECT 'Meeting' AS type, m.customer_id, cu.customer_name, cu.email, m.meeting_date AS date, m.meeting_purpose AS interaction_purpose, m.notes
+        SELECT 'Meeting' AS type, m.customer_id, cu.customer_name, cu.email, cu.status, m.meeting_date AS date, m.meeting_purpose AS interaction_purpose, m.notes
         FROM meetings m
         JOIN customers cu ON cu.customer_id = m.customer_id
         WHERE m.meeting_date >= DATE_SUB(NOW(), INTERVAL 10 YEAR)
         AND (m.notes LIKE ? OR m.meeting_purpose LIKE ? OR cu.customer_name LIKE ? OR cu.email LIKE ? OR m.customer_id LIKE ? OR m.meeting_date LIKE ?)
         AND m.meeting_purpose LIKE ?
     ";
+
 
     $params = [$query, $query, $query, $query, $query, $query, $purpose,
                $query, $query, $query, $query, $query, $query, $purpose];
@@ -37,22 +38,20 @@ if ($type === 'all') {
     // Specific type: call or meeting
     if ($type === 'call') {
         $sql = "
-            SELECT 'Call' AS type, c.customer_id, cu.customer_name, cu.email, c.datetime AS date, c.call_purpose AS interaction_purpose, c.notes
+            SELECT 'Call' AS type, c.customer_id, cu.customer_name, cu.email, cu.status, c.datetime AS date, c.call_purpose AS interaction_purpose, c.notes
             FROM calls c
             JOIN customers cu ON cu.customer_id = c.customer_id
             WHERE c.datetime >= DATE_SUB(NOW(), INTERVAL 10 YEAR)
             AND (c.notes LIKE ? OR c.call_purpose LIKE ? OR cu.customer_name LIKE ? OR cu.email LIKE ? OR c.customer_id LIKE ? OR c.datetime LIKE ?)
-            AND c.call_purpose LIKE ?
-        ";
+            AND c.call_purpose LIKE ? ";
     } else {
         $sql = "
-            SELECT 'Meeting' AS type, m.customer_id, cu.customer_name, cu.email, m.meeting_date AS date, m.meeting_purpose AS interaction_purpose, m.notes
+            SELECT 'Meeting' AS type, m.customer_id, cu.customer_name, cu.email, cu.status, m.meeting_date AS date, m.meeting_purpose AS interaction_purpose, m.notes
             FROM meetings m
             JOIN customers cu ON cu.customer_id = m.customer_id
             WHERE m.meeting_date >= DATE_SUB(NOW(), INTERVAL 10 YEAR)
             AND (m.notes LIKE ? OR m.meeting_purpose LIKE ? OR cu.customer_name LIKE ? OR cu.email LIKE ? OR m.customer_id LIKE ? OR m.meeting_date LIKE ?)
-            AND m.meeting_purpose LIKE ?
-        ";
+            AND m.meeting_purpose LIKE ? ";
     }
 
     $params = [$query, $query, $query, $query, $query, $query, $purpose];
@@ -80,6 +79,7 @@ while ($row = $result->fetch_assoc()) {
         'date' => $row['date'],
         'type' => $row['type'],
         'interaction_purpose' => $row['interaction_purpose'],
+        'status' => $row['status'],
         'notes' => $row['notes']
     ];
 }
