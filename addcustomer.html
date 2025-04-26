@@ -14,23 +14,74 @@
     <!-- Javascript to fetch admin data -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Fetch admins when the page loads
+            let admins = [];
+        
+            // Fetch admins
             fetch('get_admins.php')
             .then(response => response.json())
             .then(data => {
-                const adminSelect = document.getElementById("admin_id");
-                if (data.error) {
-                    adminSelect.innerHTML = `<option>${data.error}</option>`;
-                } else {
-                    let options = "";
-                    data.forEach(admin => {
-                        options += `<option value="${admin.user_id}">${admin.Name}</option>`;
-                    });
-                    adminSelect.innerHTML = options; // Populate select dropdown
+                if (!data.error) {
+                    admins = data;
                 }
             })
             .catch(error => console.error("Error fetching admin data:", error));
-        });
+        
+            const adminSearch = document.getElementById("admin_search");
+            const adminDropdown = document.getElementById("admin_dropdown");
+            const hiddenAdminId = document.getElementById("admin_id");
+        
+            function showDropdown(filteredAdmins) {
+                adminDropdown.innerHTML = "";
+        
+                if (filteredAdmins.length === 0) {
+                    adminDropdown.innerHTML = `<div class="list-group-item">No results found</div>`;
+                } else {
+                    filteredAdmins.forEach(admin => {
+                        const option = document.createElement("button");
+                        option.type = "button";
+                        option.className = "list-group-item list-group-item-action";
+                        option.textContent = admin.Name;
+                        option.addEventListener("click", function() {
+                            adminSearch.value = admin.Name;
+                            hiddenAdminId.value = admin.user_id;
+                            adminDropdown.style.display = "none";
+                        });
+                        adminDropdown.appendChild(option);
+                    });
+                }
+        
+                adminDropdown.style.display = "block";
+            }
+        
+            function filterAdmins(searchTerm) {
+                if (searchTerm.trim() === "") {
+                    showDropdown(admins); // Show all admins when empty
+                } else {
+                    const filteredAdmins = admins.filter(admin =>
+                        admin.Name.toLowerCase().includes(searchTerm)
+                    );
+                    showDropdown(filteredAdmins);
+                }
+            }
+        
+            // When typing
+            adminSearch.addEventListener("input", function() {
+                const searchTerm = this.value.toLowerCase();
+                filterAdmins(searchTerm);
+            });
+        
+            // When focusing/clicking
+            adminSearch.addEventListener("focus", function() {
+                filterAdmins(this.value.toLowerCase());
+            });
+        
+            // Hide dropdown when clicking outside
+            document.addEventListener("click", function(event) {
+                if (!adminSearch.contains(event.target) && !adminDropdown.contains(event.target)) {
+                    adminDropdown.style.display = "none";
+                }
+            });
+        });   
     </script>
     
     <!-- JavaScript for fetching user data -->
@@ -152,11 +203,13 @@
                 </div>
 
                 <!-- Admin Selection -->
-                <div class="form-group mb-3">
-                    <label for="admin_id">Assigned Admin</label>
-                    <select name="admin_id" id="admin_id" class="form-control">
-                        <option>Loading...</option> <!-- Placeholder text while fetching data -->
-                    </select>
+                <div class="form-group mb-3 position-relative">
+                    <label for="admin_search">Assigned Admin</label>
+                    <input type="text" id="admin_search" class="form-control" placeholder="Search Admin..." autocomplete="off">
+                    <input type="hidden" id="admin_id" name="admin_id"> <!-- This will store selected admin ID -->
+                    <div id="admin_dropdown" class="list-group position-absolute w-100" style="z-index: 1000; max-height: 200px; overflow-y: auto; display: none;">
+                        <!-- Admin options will be populated here -->
+                    </div>
                 </div>
 
                 <div class="form-actions">
