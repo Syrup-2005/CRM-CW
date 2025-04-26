@@ -67,10 +67,10 @@ $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, 
 $stmt->bind_param("sss", $name, $email, $hashed_password);
 
 if ($stmt->execute()) {
-    $_SESSION['success'] = "Account created successfully! You can now log in.";
+    $_SESSION['success'] = "Account created successfully!";
     $stmt->close();
     $conn->close();
-    header("Location: login.html"); // Ensure this matches the actual login page
+    header("Location: signup_success.html"); // Ensure this matches the actual login page
     exit();
 } else {
     $_SESSION['error'] = "Something went wrong. Please try again.";

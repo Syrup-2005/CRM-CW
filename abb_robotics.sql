@@ -117,6 +117,8 @@ ALTER TABLE `customers`
   ADD PRIMARY KEY (`customer_id`),
   ADD KEY `customers_ibfk_1` (`user_id`);
 
+ALTER TABLE `customers` ADD COLUMN status VARCHAR(20) DEFAULT 'New';
+
 --
 -- Indexes for table `meetings`
 --

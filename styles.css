@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Moon Walk';
+    src: url('fonts/Moon Walk.otf') format('opentype');
+}
+
 :root
 {
     --base-bg-color: #ffe1f2;
@@ -14,7 +19,6 @@
     --general-btn-text-color: #EEEEFF;
     --general-btn-bg-color: #007bff;
     --general-btn-border-color: none;
-    --general-btn-insetbox-color: none;
 }
 
 .dark-mode
@@ -33,7 +37,6 @@
     --general-btn-text-color: #eee;
     --general-btn-bg-color: #3f4249;
     --general-btn-border-color: black;
-    --general-btn-insetbox-color: rgb(60, 60, 60);
 }
 
 /* Form styling */
@@ -207,7 +210,8 @@ input {
     z-index: 100;
 }
 
-.overlay-container h1 {
+.overlay-container h1, .overlay-container p {
+    font-size:xx-large;
     font-family: 'Brush Script MT', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 
                 Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -353,6 +357,43 @@ input {
     transform: scale(0.6);
 }
 */
+
+.gradient-text {
+    font-size: 3rem; 
+    font-weight: bolder;
+    font-variant: small-caps;
+    
+    background: linear-gradient(to right, #FF5733, #FFC300); 
+    background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+}
+
+.gradient-abb {
+    font-family: 'Moon Walk';
+    font-size: 4rem; 
+    font-weight: bolder;
+    /* font-size: xx-large; */
+    font-variant: small-caps;
+    background: linear-gradient(270deg, #ff73e8, #47d4ff, #ff73e8); 
+    background-size: 200% 200%; 
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-animation 5s ease infinite;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 .checkbox-container {
     width: 50%;
     display: flex;
@@ -494,7 +535,7 @@ nav svg {
 }
 
 .general-btns {
-    width: 175px;
+    width: 185px;
     height: 50px;
     padding: 8px 16px;
     margin: 24px;
@@ -517,12 +558,9 @@ nav svg {
     color: var(--general-btn-text-color);
     background-color: var(--general-btn-bg-color);
     border: 4px solid var(--general-btn-border-color);
-    box-shadow: inset 0px 4px var(--general-btn-insetbox-color);
 
     transition: all 0.3s;
 }
-
-.dark-mode .general-btns {transition: color 0.3s, border 0.3s, box-shadow 0.5s;}
 
 /* light mode button hover animations */
 .general-btns:hover {
@@ -536,8 +574,8 @@ nav svg {
 .general-btns:active {
     transform: translateY(0px);
     box-shadow: 
-        inset 0px 4px var(--general-btn-insetbox-color),
-        0px 0px 20px 4px #04D9FF;
+        0px 0px navy,
+        0px 0px 0px 0px rgb(153, 153, 153);
     transition: transform 0.1s, box-shadow 0.1s;
 }
 
@@ -547,6 +585,17 @@ nav svg {
         0px 6px firebrick,
         0px 12px 4px 1px rgb(153, 153, 153);
 }
+.logout:active {
+    transform: translateY(0px);
+    box-shadow: 
+        0px 0px firebrick,
+        0px 0px 0px 0px rgb(153, 153, 153);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+/* ***************************************************************************** */
+
+.dark-mode .general-btns {transition: color 0.3s, border 0.3s, box-shadow 0.5s;}
 
 /* dark mode button hover animations */
 .dark-mode .general-btns:hover {
@@ -556,25 +605,27 @@ nav svg {
     color: #04D9FF;
     border: 4px solid #04D9FF;
     box-shadow: 
-        inset 0px 4px var(--general-btn-insetbox-color),
         0px 0px 20px 4px #04D9FF;
+}
+
+.dark-mode .general-btns:active {
+    transform: scale(0.9);
 }
     
 .dark-mode .logout {
     color: #FF073A;
     background-color: var(--general-btn-bg-color);
     border: 4px solid var(--general-btn-border-color);
-    box-shadow: inset 0px 4px var(--general-btn-insetbox-color);
 }
 
 .dark-mode .logout:hover {
     color: #FF073A;
     border: 4px solid #FF073A;
     box-shadow: 
-        inset 0px 4px var(--general-btn-insetbox-color),
         0px 0px 20px 4px #FF073A;
 }
 
+/* ***************************************************************************** */
 
 .overlay-container #signUP:hover {
     box-shadow: 
@@ -588,11 +639,19 @@ nav svg {
         0px 12px 4px 1px rgb(158, 53, 0);
 }
 
-.overlay-container #signUP:active, .overlay-container #logIN:active {
+.overlay-container #signUP:active {
     transform: translateY(0px);
     box-shadow: 
-        inset 0px 4px var(--general-btn-insetbox-color),
-        0px 0px 20px 4px #04D9FF;
+        0px 0px navy,
+        0px 0px 0px 0px rgb(157, 0, 0);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.overlay-container #logIN:active {
+    transform: translateY(0px);
+    box-shadow: 
+        0px 0px navy,
+        0px 0px 0px 0px rgb(157, 53, 0);
     transition: transform 0.1s, box-shadow 0.1s;
 }
 
@@ -600,6 +659,9 @@ nav svg {
     color: #f9f9f7;
     border: 4px solid #f9f9f7;
     box-shadow: 
-        inset 0px 4px var(--general-btn-insetbox-color),
         0px 0px 20px 4px #f9f9f7;
+}
+
+.dark-mode .overlay-container #signUP:active, .dark-mode .overlay-container #logIN:active {
+    transform: scale(0.9);
 }

@@ -46,6 +46,8 @@
         <h1>Search Interaction History</h1>
 
         <div class="content">
+            <h1 class="gradient-abb">ABB Robotics</h1>
+
             <div class="container">
                 <form id="search-form">
                     <label for="query">Search by keyword (optional):</label>
