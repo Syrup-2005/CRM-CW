@@ -1,3 +1,5 @@
+<?php include 'get_user_profile.php'; ?> 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,40 +52,40 @@
           <h2>Update Profile</h2>
 
           <form action="update_profile.php" method="POST" class="mt-4">
-              <div class="mb-3">
-                <label for="name" class="form-label">Full Name</label>
-                <input type="text" name="name" id="name" class="form-control" required>
-              </div>
-            
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" id="email" class="form-control" required>
-              </div>
-            
-              <div class="mb-3">
-                <label for="company" class="form-label">Company</label>
-                <input type="text" name="company" id="company" class="form-control">
-              </div>
-            
-              <div class="mb-3">
-                <label for="position" class="form-label">Position</label>
-                <input type="text" name="position" id="position" class="form-control">
-              </div>
-            
-              <div class="mb-3">
-                <label for="phone_number" class="form-label">Phone Number</label>
-                <input type="tel" name="phone_number" id="phone_number" class="form-control">
-              </div>
-            
-              <div class="mb-3">
-                <label for="address" class="form-label">Address</label>
-                <textarea name="address" id="address" rows="4" class="form-control"></textarea>
-              </div>
-            
-              <div class="form-actions button-container">
-                  <button type="submit" class="general-btns">Save</button>
-                  <a href="profile.html" class="general-btns logout">Cancel</a>
-              </div>
+            <div class="mb-3">
+              <label for="name" class="form-label">Full Name</label>
+              <input type="text" name="name" id="name" class="form-control" required value="<?= htmlspecialchars($user['name']) ?>">
+            </div>
+              
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" name="email" id="email" class="form-control" required value="<?= htmlspecialchars($user['email']) ?>">
+            </div>
+              
+            <div class="mb-3">
+              <label for="company" class="form-label">Company</label>
+              <input type="text" name="company" id="company" class="form-control" value="<?= htmlspecialchars($user['company']) ?>">
+            </div>
+              
+            <div class="mb-3">
+              <label for="position" class="form-label">Position</label>
+              <input type="text" name="position" id="position" class="form-control" value="<?= htmlspecialchars($user['position']) ?>">
+            </div>
+              
+            <div class="mb-3">
+              <label for="phone_number" class="form-label">Phone Number</label>
+              <input type="tel" name="phone_number" id="phone_number" class="form-control" value="<?= htmlspecialchars($user['phone_number']) ?>">
+            </div>
+              
+            <div class="mb-3">
+              <label for="address" class="form-label">Address</label>
+              <textarea name="address" id="address" rows="4" class="form-control"><?= htmlspecialchars($user['address']) ?></textarea>
+            </div>
+              
+            <div class="form-actions button-container">
+              <button type="submit" class="general-btns">Save</button>
+              <a href="profile.html" class="general-btns logout">Cancel</a>
+            </div>
           </form>
       </div>
       </div>
