@@ -11,11 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
 $name = trim($_POST['name']);
 $email = trim($_POST['email']);
+$phone = trim($_POST['phone']);
 $password = $_POST['password'];
 $confirm_password = isset($_POST['confirm_password']) ? trim($_POST['confirm_password']) : '';
 
 // Validate inputs
-if (empty($name) || empty($email) || empty($password) || empty($confirm_password)) {
+if (empty($name) || empty($email) || empty($password) || empty($confirm_password || empty($phone))) {
     $_SESSION['error'] = "All fields are required.";
     header("Location: login.html");
     exit();
@@ -63,8 +64,8 @@ if (!$stmt) {
 $stmt->close();
 
 // Insert user into the database
-$stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-$stmt->bind_param("sss", $name, $email, $hashed_password);
+$stmt = $conn->prepare("INSERT INTO users (name, email, password, phone_number) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("ssss", $name, $email, $hashed_password, $phone);
 
 if ($stmt->execute()) {
     $_SESSION['success'] = "Account created successfully!";
