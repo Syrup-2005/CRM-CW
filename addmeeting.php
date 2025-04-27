@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (mysqli_query($conn, $query)) {
         echo "<script>
             alert('Meeting scheduled successfully!');
-            window.location.href = 'addmeeting.html';
+            window.location.href = 'meetings.html';
         </script>";
     } else {
         echo "<script>

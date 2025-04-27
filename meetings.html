@@ -29,18 +29,21 @@
 
     <!-- Javascript for fetching customer information -->
     <script>
-        // Fetch meeting data
         fetch("get_meeting_data.php")
             .then(res => res.json())
             .then(data => {
                 const tbody = document.querySelector("table tbody");
                 if (data.length === 0) {
-                    tbody.innerHTML = "<tr><td colspan='4'>No upcoming meetings.</td></tr>";
+                    tbody.innerHTML = "<tr><td colspan='6'>No upcoming meetings.</td></tr>";
                 } else {
+                    tbody.innerHTML = ''; // Clear table before appending new rows
                     data.forEach(meeting => {
+                        // Populate the table
                         const row = document.createElement("tr");
                         row.innerHTML = `
+                            <td>${meeting.meeting_id}</td>
                             <td>${meeting.customer_id}</td>
+                            <td>${meeting.customer_name ?? ''}</td>
                             <td>${meeting.meeting_date}</td>
                             <td>${meeting.meeting_purpose}</td>
                             <td>${meeting.notes ?? ''}</td>
@@ -49,9 +52,6 @@
                     });
                 }
             })
-            .catch(error => {
-                console.error("Error fetching meeting data:", error);
-            });
     </script>
 </head>
 
@@ -97,7 +97,9 @@
                     <h1>Upcoming Meetings</h1>
                     <thead>
                         <tr>
+                            <th>Meeting ID</th>
                             <th>Customer ID</th>
+                            <th>Customer Name</th>
                             <th>Meeting Date</th>
                             <th>Purpose of Meeting</th>
                             <th>Notes / Agenda</th>

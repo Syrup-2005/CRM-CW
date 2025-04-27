@@ -4,12 +4,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    var_dump($_POST); // DEBUG LINE
+    // var_dump($_POST); // DEBUG LINE
 
-    if (!isset($_POST['call_id'])) {
-        echo "Call ID not provided.";
-        exit;
-    }
+    // if (!isset($_POST['call_id'])) {
+    //     echo "Call ID not provided.";
+    //     exit;
+    // }
 
     $call_id = $_POST['call_id'];
 

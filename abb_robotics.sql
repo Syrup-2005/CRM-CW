@@ -57,9 +57,6 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`customer_id`, `user_id`, `customer_name`, `email`, `phone_no`, `company`, `address`, `type_of_work`) VALUES
-(1, 1, 'customer 1', 'customer1@gmail.com', '0175222988', 'Astro', '744 Jalan Semenyih', 'Robotic Arm Repair');
-
 -- --------------------------------------------------------
 
 --
@@ -96,8 +93,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `Name`, `Email`, `Password`, `Position`, `company`, `phone_number`, `address`) VALUES
-(1, 'Shawn Chan', 'chanshawn327@gmail.com', '$2y$10$uJy.uxxemjIMHUs3j6hoZ.du.9yyAYmyO90KM8Vt28wX6x0.elDO2', 'Manager', 'ABB Robotics', '0124545622', 'No 11 Jalan TTS 5/4');
+-- INSERT INTO `users` (`user_id`, `Name`, `Email`, `Password`, `Position`, `company`, `phone_number`, `address`) VALUES
+-- (1, 'Shawn Chan', 'chanshawn327@gmail.com', '$2y$10$uJy.uxxemjIMHUs3j6hoZ.du.9yyAYmyO90KM8Vt28wX6x0.elDO2', 'Manager', 'ABB Robotics', '0124545622', 'No 11 Jalan TTS 5/4');
 
 --
 -- Indexes for dumped tables

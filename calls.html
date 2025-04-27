@@ -10,27 +10,49 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="finisher-header.es5.min.js"></script>
     <script src="functions.js" defer></script>
-
+    <!-- JavaScript for fetching user data -->
     <script>
-    fetch('get_calls.php')
-        .then(res => res.json())
-        .then(data => {
-        const tbody = document.querySelector("table tbody");
-        if (data.length === 0) {
-            tbody.innerHTML = "<tr><td colspan='4'>No upcoming calls scheduled.</td></tr>";
-        } else {
-            data.forEach(call => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${call.customer_id}</td>
-                    <td>${call.datetime}</td>
-                    <td>${call.call_purpose}</td>
-                    <td>${call.notes}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("get_user_data.php")
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById("user-info").innerHTML = "<p style='color: red;'>" + data.error + "</p>";
+                } else {
+                    document.getElementById("user-name").innerText = data.name;
+                    document.getElementById("user-email").innerText = data.email;
+                }
+            })
+            .catch(error => console.error("Error fetching user data:", error));
         });
+    </script>
+    
+    <!-- Javascript for fetching customer information -->
+    <script>
+        fetch("get_calls.php")
+            .then(res => res.json())
+            .then(data => {
+                console.log(data); // Check what data is returned
+                const tbody = document.querySelector("table tbody");
+                if (data.length === 0) {
+                    tbody.innerHTML = "<tr><td colspan='7'>No upcoming calls.</td></tr>";
+                } else {
+                    tbody.innerHTML = ''; // Clear table before appending new rows
+                    data.forEach(calls => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${calls.call_id}</td>
+                            <td>${calls.customer_id}</td>
+                            <td>${calls.customer_name ?? ''}</td>
+                            <td>${calls.datetime}</td>
+                            <td>${calls.call_purpose}</td>
+                            <td>${calls.notes ?? ''}</td>
+                            <td>${calls.created_at ?? ''}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                }
+            });
     </script>
 </head>
 
@@ -76,11 +98,13 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>Call ID</th>
                             <th>Customer ID</th>
+                            <th>Customer Name</th>
                             <th>Date and Time</th>
                             <th>Purpose of Call</th>
                             <th>Notes / Agenda</th>
-        
+                            <th>Date Created</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

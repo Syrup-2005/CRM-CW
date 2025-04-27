@@ -14,50 +14,129 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            fetch('get_calls.php')
-        .then(res => res.json())
-        .then(data => {
-        const tbody = document.querySelector("table tbody");
-        if (data.length === 0) {
-            tbody.innerHTML = "<tr><td colspan='4'>No upcoming calls scheduled.</td></tr>";
-        } else {
-            data.forEach(call => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${call.customer_id}</td>
-                    <td>${call.datetime}</td>
-                    <td>${call.call_purpose}</td>
-                    <td>${call.notes}</td>
-                `;
-                tbody.appendChild(row);
-
-                // Populate the dropdown (ensure uniqueness of customer IDs)
-                if (!Array.from(dropdown.options).some(option => option.value === call.customer_id)) {
-                    const option = document.createElement("option");
-                    option.value = call.call_id;
-                    option.text = `Customer ${call.customer_id} - ${call.call_purpose} on ${call.datetime}`;
-                    select.appendChild(option);
+            // Initialize Select2 on the call_id dropdown
+            $('#call_id').select2({
+                placeholder: 'Select a Call',
+                allowClear: true
+            });
+    
+            // Fetch all calls initially and display them
+            fetch("get_calls.php")
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.querySelector("table tbody");
+                const dropdown = document.getElementById("call_id");
+    
+                if (data.length === 0) {
+                    tbody.innerHTML = "<tr><td colspan='7'>No upcoming calls.</td></tr>";
+                } else {
+                    // Populate the dropdown with Select2 options
+                    data.forEach(call => {
+                        const option = document.createElement("option");
+                        option.value = call.call_id;
+                        option.text = `Call ID ${call.call_id} - ${call.customer_name}`;
+                        dropdown.appendChild(option);
+                    });
+    
+                    // Show all calls in the table
+                    showAllCalls(data);
+    
+                    // Refresh the Select2 dropdown after populating the options
+                    $('#call_id').trigger('change');
                 }
             });
-        }
-        });
-    })
-
-            // Handle delete customer
+    
+            // Handle when a user selects a call from the dropdown
+            $('#call_id').on('change', function() {
+                const callId = $(this).val();
+                if (callId) {
+                    // Show the selected call's data in the table
+                    showSelectedCall(callId);
+                } else {
+                    // Show all calls in the table again if no call is selected
+                    fetch("get_calls.php")
+                    .then(res => res.json())
+                    .then(data => {
+                        showAllCalls(data);
+                    });
+                }
+            });
+    
+            // Function to display all calls in the table
+            function showAllCalls(calls) {
+                const tbody = document.querySelector("table tbody");
+                tbody.innerHTML = "";  // Clear any existing rows
+    
+                if (calls.length === 0) {
+                    tbody.innerHTML = "<tr><td colspan='7'>No calls available.</td></tr>";
+                } else {
+                    calls.forEach(call => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${call.call_id}</td>
+                            <td>${call.customer_id}</td>
+                            <td>${call.customer_name ?? ''}</td>
+                            <td>${call.datetime}</td>
+                            <td>${call.call_purpose}</td>
+                            <td>${call.notes ?? ''}</td>
+                            <td>${call.created_at}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                }
+            }
+    
+            // Function to display only the selected call in the table
+            function showSelectedCall(callId) {
+                const tbody = document.querySelector("table tbody");
+    
+                // Clear any existing rows in the table
+                tbody.innerHTML = "";
+    
+                // Fetch the specific call data
+                fetch("get_calls.php")
+                .then(res => res.json())
+                .then(data => {
+                    const call = data.find(m => m.call_id == callId); // Find the selected call
+                    if (call) {
+                        // Populate the table with the selected call's data
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${call.call_id}</td>
+                            <td>${call.customer_id}</td>
+                            <td>${call.customer_name ?? ''}</td>
+                            <td>${call.datetime}</td>
+                            <td>${call.call_purpose}</td>
+                            <td>${call.notes ?? ''}</td>
+                            <td>${call.created_at}</td>
+                        `;
+                        tbody.appendChild(row);
+                    } else {
+                        tbody.innerHTML = "<tr><td colspan='7'>No data found for the selected call.</td></tr>";
+                    }
+                });
+            }
+    
+            // Handle delete call
             $('#deleteButton').click(function() {
-                let callId = $('#customer_id').val(); // Dropdown contains call_id now
-            
+                let callId = $('#call_id').val();
+    
                 if (callId) {
                     $.ajax({
                         url: 'deletecall.php',
                         type: 'POST',
-                        data: { call_id: callId }, // Send call_id instead of customer_id
+                        data: { call_id: callId },
                         success: function(response) {
-                            $('#message').text(response);
-            
-                            // Optionally remove the deleted row from the table and dropdown
-                            $(`#customer_id option[value="${callId}"]`).remove();
-                            $(`tr[data-call-id="${callId}"]`).remove();
+                            $('#message').text(response); // Show delete success message
+                            // Reload the call table data after deletion to show all remaining calls
+                            fetch("get_calls.php")
+                            .then(res => res.json())
+                            .then(data => {
+                                showAllCalls(data);
+                            });
+                            // Optionally, remove the deleted call from the dropdown
+                            $(`#call_id option[value="${callId}"]`).remove();
+                            $('#call_id').trigger('change'); // Refresh Select2
                         },
                         error: function(xhr, status, error) {
                             $('#message').text('Error: ' + error);
@@ -67,7 +146,8 @@
                     $('#message').text('Please select a call.');
                 }
             });
-    </script>
+        });
+    </script>     
 </head>
 
 <body>
@@ -91,7 +171,7 @@
                 <a class="home-link" href="dashboard.html">Home</a>
                 <a href="profile.html"><i class="fas fa-user"></i><span class="sidebar-text"> My Profile</span></a>
                 <a href="customer.html"><i class="fas fa-customer"></i><span class="sidebar-text"> Customers</span></a>
-                <a href="meetings.html"><i class="fas fa-calendar-alt"></i><span class="sidebar-text"> Meetings</span></a>
+                <a href="calls.html"><i class="fas fa-calendar-alt"></i><span class="sidebar-text"> Meetings</span></a>
                 <a href="calls.html"><i class="fas fa-phone"></i><span class="sidebar-text"> Calls</span></a>
                 <a href="interaction_history.php"><i class="fas fa-interactions"></i><span class="sidebar-text"> Interaction History</span></a>
                 <a href="logout.html"><i class="fas fa-sign-out-alt"></i><span class="sidebar-text"> Logout</span></a>
@@ -106,7 +186,7 @@
         <div class="content">
             <div class="container">
                 <h2>Select Call to Delete</h2>
-                <select id="customer_id">
+                <select id="call_id" style="width: 70%">
                     <option value="">Select a Call</option>
                 </select>
 
@@ -121,10 +201,13 @@
             <table class="table mt-4">
                 <thead>
                     <tr>
+                        <th>Call ID</th>
                         <th>Customer ID</th>
+                        <th>Customer Name</th>
                         <th>Date and Time</th>
                         <th>Purpose of Call</th>
                         <th>Notes / Agenda</th>
+                        <th>Date Created</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -136,5 +219,12 @@
 
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Select2 JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 </body>
 </html>

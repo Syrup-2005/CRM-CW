@@ -4,9 +4,9 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    var_dump($_POST); // DEBUG LINE
+    // var_dump($_POST); // DEBUG LINE
 
-    $customer_id = $_POST['customer_id'];
+    $meeting_id = $_POST['meeting_id'];
 
     // Include the database connection file
     require 'db_connection.php'; 
@@ -17,12 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Delete related calls from the calls table
-    $delete_meetings_sql = "DELETE FROM meetings WHERE customer_id = ?";
+    $delete_meetings_sql = "DELETE FROM meetings WHERE meeting_id = ?";
     if ($stmt_meetings = $conn->prepare($delete_meetings_sql)) {
-        $stmt_meetings->bind_param("i", $customer_id);
+        $stmt_meetings->bind_param("i", $meeting_id);
         
         if ($stmt_meetings->execute()) {
-            echo "Related meetings deleted successfully.<br>";
+            echo "Related meetings deleted successfully.";
         } else {
             echo "Error deleting related meetings: " . $stmt_meetings->error . "<br>";
         }
